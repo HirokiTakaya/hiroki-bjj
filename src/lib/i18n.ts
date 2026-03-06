@@ -10,18 +10,18 @@ export const LANG = {
     hero: {
       subtitle: "PRIVATE JIU-JITSU LESSONS",
       title: "Train with Hiroki Takaya",
-      desc: "IBJJF Asian Championship Bronze Medalist. Elevate your grappling with personalized 1-on-1 sessions in Metro Vancouver.",
+      desc: "Elevate your grappling with personalized 1-on-1 sessions in Metro Vancouver.",
       cta: "Book a Session",
       scroll: "Scroll to explore",
     },
     about: {
       tag: "ABOUT YOUR INSTRUCTOR",
       title: "Hiroki Takaya",
-      p1: "A Brazilian Jiu-Jitsu instructor with competition experience across 4 countries. IBJJF Asian Championship Bronze Medalist (2018).",
+      p1: "A Brazilian Jiu-Jitsu instructor with competition experience across 4 countries.",
       p2: "Whether you're a complete beginner or a seasoned competitor, Hiroki tailors each session to your goals — from fundamentals and self-defense to advanced competition strategies.",
       stats: [
         { value: "4", label: "Countries Trained" },
-        { value: "IBJJF", label: "Bronze Medalist" },
+        { value: "10+", label: "Years Training" },
         { value: "5", label: "Training Locations" },
         { value: "1:1", label: "Personalized" },
       ],
@@ -146,18 +146,18 @@ export const LANG = {
     hero: {
       subtitle: "プライベート柔術レッスン",
       title: "Hiroki Takayaと練習しよう",
-      desc: "IBJJF アジア選手権 銅メダリスト。バンクーバーで1対1のパーソナルセッションでグラップリングを向上させましょう。",
+      desc: "バンクーバーで1対1のパーソナルセッションでグラップリングを向上させましょう。",
       cta: "セッションを予約",
       scroll: "スクロールして探索",
     },
     about: {
       tag: "インストラクター紹介",
       title: "Hiroki Takaya",
-      p1: "4カ国での試合経験を持つブラジリアン柔術インストラクター。2018年IBJJFアジア選手権銅メダリスト。",
+      p1: "4カ国での試合経験を持つブラジリアン柔術インストラクター。",
       p2: "初心者から競技者まで、セルフディフェンスの基礎から高度な試合戦略まで、あなたの目標に合わせたレッスンをご提供します。",
       stats: [
         { value: "4", label: "カ国で修行" },
-        { value: "IBJJF", label: "銅メダリスト" },
+        { value: "10+", label: "年の経験" },
         { value: "5", label: "提供場所" },
         { value: "1:1", label: "マンツーマン" },
       ],
