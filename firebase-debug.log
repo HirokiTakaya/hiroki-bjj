@@ -1,0 +1,58 @@
+[debug] [2026-03-03T05:42:20.573Z] ----------------------------------------------------------------------
+[debug] [2026-03-03T05:42:20.587Z] Command:       /Users/hiroki/.nvm/versions/node/v22.21.1/bin/node /Users/hiroki/.nvm/versions/node/v22.21.1/bin/firebase init functions
+[debug] [2026-03-03T05:42:20.588Z] CLI Version:   15.8.0
+[debug] [2026-03-03T05:42:20.588Z] Platform:      darwin
+[debug] [2026-03-03T05:42:20.589Z] Node Version:  v22.21.1
+[debug] [2026-03-03T05:42:20.590Z] Time:          Mon Mar 02 2026 21:42:20 GMT-0800 (Pacific Standard Time)
+[debug] [2026-03-03T05:42:20.591Z] ----------------------------------------------------------------------
+[debug] 
+[debug] [2026-03-03T05:42:20.598Z] >>> [apiv2][query] GET https://firebase-public.firebaseio.com/cli.json [none]
+[info] 
+     ######## #### ########  ######## ########     ###     ######  ########
+     ##        ##  ##     ## ##       ##     ##  ##   ##  ##       ##
+     ######    ##  ########  ######   ########  #########  ######  ######
+     ##        ##  ##    ##  ##       ##     ## ##     ##       ## ##
+     ##       #### ##     ## ######## ########  ##     ##  ######  ########
+
+You're about to initialize a Firebase project in this directory:
+
+  /Users/hiroki/Downloads/hiroki-bjj
+
+[info] 
+=== Project Setup
+[info] 
+[info] First, let's associate this project directory with a Firebase project.
+[info] You can create multiple project aliases by running firebase use --add, 
+[info] 
+[debug] [2026-03-03T06:49:10.960Z] > command requires scopes: ["email","openid","https://www.googleapis.com/auth/cloudplatformprojects.readonly","https://www.googleapis.com/auth/firebase","https://www.googleapis.com/auth/cloud-platform"]
+[debug] [2026-03-03T06:49:10.961Z] > authorizing via signed-in user (hirokitakaya00@gmail.com)
+[debug] [2026-03-03T06:49:10.961Z] Checked if tokens are valid: false, expires at: 1772307785243
+[debug] [2026-03-03T06:49:10.962Z] Checked if tokens are valid: false, expires at: 1772307785243
+[debug] [2026-03-03T06:49:10.962Z] > refreshing access token with scopes: []
+[debug] [2026-03-03T06:49:10.964Z] >>> [apiv2][query] POST https://www.googleapis.com/oauth2/v3/token [none]
+[debug] [2026-03-03T06:49:10.964Z] >>> [apiv2][body] POST https://www.googleapis.com/oauth2/v3/token [omitted]
+[debug] [2026-03-03T06:49:10.981Z] *** [apiv2] error from fetch(https://firebase-public.firebaseio.com/cli.json, {"headers":{},"method":"GET"}): FetchError: request to https://firebase-public.firebaseio.com/cli.json failed, reason: getaddrinfo ENOTFOUND firebase-public.firebaseio.com
+[warn] ⚠  Unable to fetch the CLI MOTD and remote config. This is not a fatal error, but may indicate an issue with your network connection. 
+[debug] [2026-03-03T06:49:10.983Z] Failed to fetch MOTD FirebaseError: Failed to make request to https://firebase-public.firebaseio.com/cli.json
+[debug] [2026-03-03T06:49:11.003Z] *** [apiv2] error from fetch(https://www.googleapis.com/oauth2/v3/token, {"headers":{},"method":"POST","body":{"_overheadLength":545,"_valueLength":212,"_valuesToMeasure":[],"writable":false,"readable":true,"dataSize":0,"maxDataSize":2097152,"pauseStreams":true,"_released":true,"_streams":[],"_currentStream":null,"_insideLoop":false,"_pendingNext":false,"_boundary":"--------------------------3fd063edb14b97fc44903470","_events":{},"_eventsCount":1}}): FetchError: request to https://www.googleapis.com/oauth2/v3/token failed, reason: getaddrinfo ENOTFOUND www.googleapis.com
+[error] Authentication Error: Your credentials are no longer valid. Please run firebase login --reauth
+
+For CI servers and headless environments, generate a new token with firebase login:ci
+[debug] [2026-03-03T06:49:11.004Z] Authentication Error: Your credentials are no longer valid. Please run firebase login --reauth
+
+For CI servers and headless environments, generate a new token with firebase login:ci
+[debug] [2026-03-03T06:49:11.019Z] FirebaseError: Authentication Error: Your credentials are no longer valid. Please run firebase login --reauth
+
+For CI servers and headless environments, generate a new token with firebase login:ci
+    at invalidCredentialError (/Users/hiroki/.nvm/versions/node/v22.21.1/lib/node_modules/firebase-tools/lib/auth.js:177:12)
+    at refreshTokens (/Users/hiroki/.nvm/versions/node/v22.21.1/lib/node_modules/firebase-tools/lib/auth.js:590:15)
+    at process.processTicksAndRejections (node:internal/process/task_queues:105:5)
+    at async getAccessToken (/Users/hiroki/.nvm/versions/node/v22.21.1/lib/node_modules/firebase-tools/lib/apiv2.js:49:18)
+    at async Client.addAuthHeader (/Users/hiroki/.nvm/versions/node/v22.21.1/lib/node_modules/firebase-tools/lib/apiv2.js:179:21)
+    at async Client.request (/Users/hiroki/.nvm/versions/node/v22.21.1/lib/node_modules/firebase-tools/lib/apiv2.js:126:34)
+    at async getFirebaseProject (/Users/hiroki/.nvm/versions/node/v22.21.1/lib/node_modules/firebase-tools/lib/management/projects.js:361:21)
+    at async usingProject (/Users/hiroki/.nvm/versions/node/v22.21.1/lib/node_modules/firebase-tools/lib/init/features/project.js:77:16)
+    at async Object.doSetup (/Users/hiroki/.nvm/versions/node/v22.21.1/lib/node_modules/firebase-tools/lib/init/features/project.js:29:9)
+    at async init (/Users/hiroki/.nvm/versions/node/v22.21.1/lib/node_modules/firebase-tools/lib/init/index.js:92:13)
+[error] 
+[error] Error: Failed to get Firebase project picture-1736f. Please make sure the project exists and your account has permission to access it.

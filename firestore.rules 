@@ -1,0 +1,19 @@
+rules_version = '2';
+service cloud.firestore {
+  match /databases/{database}/documents {
+
+    // Weekly schedule: anyone can read, anyone can write (admin auth is client-side)
+    match /weeklySchedule/{doc} {
+      allow read: if true;
+      allow write: if true;
+    }
+
+    // Bookings: anyone can read and create, update for cancellation
+    match /bookings/{doc} {
+      allow read: if true;
+      allow create: if true;
+      allow update: if true;
+      allow delete: if false;
+    }
+  }
+}
