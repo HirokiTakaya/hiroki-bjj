@@ -47,6 +47,8 @@ const LABELS = {
     hint: "Highlighted dates have available slots",
     oneHour: "1 HOUR",
     multipleLocations: "locations",
+    contactNote: "Don't see a time that works? Contact me directly:",
+    contactEmail: "hirokitakaya00@gmail.com",
   },
   ja: {
     tag: "予約",
@@ -80,6 +82,8 @@ const LABELS = {
     hint: "ハイライトされた日付に空きがあります",
     oneHour: "1 HOUR",
     multipleLocations: "箇所",
+    contactNote: "ご希望の時間が見つからない場合はこちらへ：",
+    contactEmail: "hirokitakaya00@gmail.com",
   },
 };
 
@@ -531,6 +535,22 @@ export default function BookingSection({ lang }: { lang: Lang }) {
               }}
             >
               {slots.length > 0 ? t.hint : t.noAvailability}
+            </p>
+            <p
+              style={{
+                fontSize: 13,
+                color: "var(--color-text-faint)",
+                marginTop: 12,
+                textAlign: "center",
+              }}
+            >
+              {t.contactNote}{" "}
+              <a
+                href={`mailto:${t.contactEmail}`}
+                style={{ color: "var(--color-accent)", textDecoration: "none" }}
+              >
+                {t.contactEmail}
+              </a>
             </p>
           </div>
         )}

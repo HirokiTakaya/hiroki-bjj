@@ -30,7 +30,7 @@ export const LANG = {
       tag: "PRICING",
       title: "Private Lesson Rates",
       subtitle:
-        "Bring a friend and split the cost. No membership required to book.",
+        "Bring a friend and split the cost. No membership required to book. Rates vary by gym due to each facility's policies.",
       plans: [
         {
           name: "Advantage Fitness Member",
@@ -73,7 +73,7 @@ export const LANG = {
     },
     locations: {
       tag: "LOCATIONS",
-      title: "Training Locations",
+      title: "Teaching Locations",
       spots: [
         {
           area: "Kitsilano",
@@ -166,7 +166,7 @@ export const LANG = {
       tag: "料金",
       title: "プライベートレッスン料金",
       subtitle:
-        "お友達と一緒に参加して費用を分割できます。会員でなくても予約可能です。",
+        "お友達と一緒に参加して費用を分割できます。会員でなくても予約可能です。料金は各施設の規定により異なります。",
       plans: [
         {
           name: "Advantage Fitness 会員",
@@ -208,8 +208,8 @@ export const LANG = {
       ],
     },
     locations: {
-      tag: "場所",
-      title: "トレーニング場所",
+      tag: "指導場所",
+      title: "5箇所で指導中",
       spots: [
         {
           area: "キツラノ",
