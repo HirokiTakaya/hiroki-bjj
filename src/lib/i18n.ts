@@ -21,7 +21,7 @@ export const LANG = {
       p2: "Whether you're a complete beginner or a seasoned competitor, Hiroki tailors each session to your goals — from fundamentals and self-defense to advanced competition strategies.",
       stats: [
         { value: "4", label: "Countries Trained" },
-        { value: "10+", label: "Years Training" },
+        { value: "8+", label: "Years Training" },
         { value: "5", label: "Training Locations" },
         { value: "1:1", label: "Personalized" },
       ],
@@ -157,7 +157,7 @@ export const LANG = {
       p2: "初心者から競技者まで、セルフディフェンスの基礎から高度な試合戦略まで、あなたの目標に合わせたレッスンをご提供します。",
       stats: [
         { value: "4", label: "カ国で修行" },
-        { value: "10+", label: "年の経験" },
+        { value: "8+", label: "年の経験" },
         { value: "5", label: "提供場所" },
         { value: "1:1", label: "マンツーマン" },
       ],
