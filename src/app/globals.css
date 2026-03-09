@@ -196,30 +196,48 @@ select.input-field {
    MOBILE LAYOUT FIXES (≤ 768px)
    ══════════════════════════════════════════════════ */
 @media (max-width: 768px) {
+  /* Global: force left/right padding on ALL sections and containers */
+  body {
+    overflow-x: hidden !important;
+  }
+
+  section[id] {
+    padding-left: 20px !important;
+    padding-right: 20px !important;
+    box-sizing: border-box !important;
+  }
+
   /* Hero: push content below fixed nav */
   #hero {
-    padding-top: 70px;
+    padding-top: 80px !important;
     min-height: 100dvh;
   }
 
-  /* Nav: tighter on mobile */
+  /* Nav: mobile padding */
   nav {
     padding: 0 16px !important;
   }
 
-  /* Hero inner wrapper: stack vertically */
+  /* Hero inner wrapper: stack vertically with side padding */
   #hero > div:nth-child(3) {
     flex-direction: column !important;
     gap: 32px !important;
-    padding: 0 16px !important;
+    padding: 0 4px !important;
+    max-width: 100% !important;
+    box-sizing: border-box !important;
   }
 
-  /* Hero text: left-align, full width */
+  /* Hero text: full width */
   #hero > div:nth-child(3) > div:first-child {
     max-width: 100% !important;
   }
 
-  /* Hero image: smaller */
+  /* Hero title: prevent overflow */
+  #hero h1 {
+    word-break: break-word !important;
+  }
+
+  /* Hero image: smaller on mobile */
   #hero > div:nth-child(3) > div:last-child {
     flex: 0 1 260px !important;
   }
@@ -229,12 +247,19 @@ select.input-field {
     margin: 0 auto;
   }
 
-  /* Sections: less horizontal padding */
+  /* All content sections: consistent padding */
   #about, #pricing, #locations, #book {
     padding-top: 80px !important;
     padding-bottom: 80px !important;
-    padding-left: 16px !important;
-    padding-right: 16px !important;
+  }
+
+  /* Inner containers: ensure they don't overflow */
+  #about > div,
+  #pricing > div,
+  #locations > div,
+  #book > div {
+    max-width: 100% !important;
+    box-sizing: border-box !important;
   }
 
   /* About stats: 2 columns */
@@ -248,17 +273,34 @@ select.input-field {
     grid-template-columns: 1fr !important;
   }
 
-  /* Location cards: less padding */
+  /* Price cards: prevent overflow */
+  .price-card {
+    max-width: 100% !important;
+    box-sizing: border-box !important;
+    padding: 32px 24px !important;
+  }
+
+  /* Location cards: compact */
   .location-card {
     padding: 20px !important;
     gap: 16px !important;
+    max-width: 100% !important;
+    box-sizing: border-box !important;
   }
 
   /* Footer: stack center */
+  footer {
+    padding: 40px 20px !important;
+  }
   footer > div {
     flex-direction: column !important;
     text-align: center !important;
     gap: 20px !important;
+  }
+
+  /* Section dividers */
+  .section-divider {
+    padding: 0 20px !important;
   }
 }
 
@@ -267,10 +309,22 @@ select.input-field {
   #book form > div {
     grid-template-columns: 1fr !important;
   }
+
+  /* Booking summary bar */
+  #book form ~ div,
+  #book > div > div {
+    max-width: 100% !important;
+    box-sizing: border-box !important;
+  }
 }
 
 /* ── Small phones (≤ 400px) ── */
 @media (max-width: 400px) {
+  section[id] {
+    padding-left: 16px !important;
+    padding-right: 16px !important;
+  }
+
   #hero > div:nth-child(3) > div:last-child {
     flex: 0 1 200px !important;
   }
@@ -284,5 +338,18 @@ select.input-field {
   }
   #about > div > div:last-child > div {
     padding: 20px 12px !important;
+  }
+
+  .price-card {
+    padding: 28px 16px !important;
+  }
+
+  .location-card {
+    padding: 16px !important;
+    gap: 12px !important;
+  }
+
+  footer {
+    padding: 32px 16px !important;
   }
 }
