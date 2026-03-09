@@ -247,11 +247,11 @@ export async function fetchAvailability(): Promise<DayAvailability[]> {
     bookingsByDate.get(date)!.push({ time, location });
   });
 
-  // Generate availability for next 60 days
+  // Generate availability for next 60 days (skip today and tomorrow)
   const daysAhead = 60;
   const result: DayAvailability[] = [];
 
-  for (let i = 0; i < daysAhead; i++) {
+  for (let i = 2; i < daysAhead; i++) {
     const dateObj = new Date();
     dateObj.setDate(dateObj.getDate() + i);
 
@@ -269,7 +269,7 @@ export async function fetchAvailability(): Promise<DayAvailability[]> {
     ].sort(sortTimes);
 
     for (const time of uniqueTimes) {
-      // Skip past times for today
+      // Skip past times for today (shouldn't happen with i=2, but safe)
       if (dateStr === todayStr && timeToMinutes(time) <= nowMinutes) continue;
 
       const scheduledLocations = [
@@ -351,6 +351,20 @@ export async function createBooking(
 
   if (!date || !time || !location || !name || !email) {
     return { success: false, error: "Missing required fields" };
+  }
+
+  // 0. Block same-day and next-day bookings
+  const today = new Date();
+  const todayStr = getVancouverDateString(today);
+  const tomorrow = new Date();
+  tomorrow.setDate(tomorrow.getDate() + 1);
+  const tomorrowStr = getVancouverDateString(tomorrow);
+
+  if (date === todayStr || date === tomorrowStr) {
+    return {
+      success: false,
+      error: "Bookings must be made at least 2 days in advance",
+    };
   }
 
   // 1. Verify the slot exists in weekly schedule (support old + new)
