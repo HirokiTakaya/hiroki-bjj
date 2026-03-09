@@ -191,3 +191,98 @@ select.input-field {
   .mobile-toggle { display: none !important; }
   .mobile-menu { display: none !important; }
 }
+
+/* ══════════════════════════════════════════════════
+   MOBILE LAYOUT FIXES (≤ 768px)
+   ══════════════════════════════════════════════════ */
+@media (max-width: 768px) {
+  /* Hero: push content below fixed nav */
+  #hero {
+    padding-top: 70px;
+    min-height: 100dvh;
+  }
+
+  /* Nav: tighter on mobile */
+  nav {
+    padding: 0 16px !important;
+  }
+
+  /* Hero inner wrapper: stack vertically */
+  #hero > div:nth-child(3) {
+    flex-direction: column !important;
+    gap: 32px !important;
+    padding: 0 16px !important;
+  }
+
+  /* Hero text: left-align, full width */
+  #hero > div:nth-child(3) > div:first-child {
+    max-width: 100% !important;
+  }
+
+  /* Hero image: smaller */
+  #hero > div:nth-child(3) > div:last-child {
+    flex: 0 1 260px !important;
+  }
+  #hero > div:nth-child(3) > div:last-child img {
+    max-width: 260px !important;
+    height: 320px !important;
+    margin: 0 auto;
+  }
+
+  /* Sections: less horizontal padding */
+  #about, #pricing, #locations, #book {
+    padding-top: 80px !important;
+    padding-bottom: 80px !important;
+    padding-left: 16px !important;
+    padding-right: 16px !important;
+  }
+
+  /* About stats: 2 columns */
+  #about > div > div:last-child {
+    grid-template-columns: repeat(2, 1fr) !important;
+    gap: 16px !important;
+  }
+
+  /* Pricing: single column */
+  #pricing > div > div:last-child {
+    grid-template-columns: 1fr !important;
+  }
+
+  /* Location cards: less padding */
+  .location-card {
+    padding: 20px !important;
+    gap: 16px !important;
+  }
+
+  /* Footer: stack center */
+  footer > div {
+    flex-direction: column !important;
+    text-align: center !important;
+    gap: 20px !important;
+  }
+}
+
+/* ── Booking form: single column on mobile ── */
+@media (max-width: 640px) {
+  #book form > div {
+    grid-template-columns: 1fr !important;
+  }
+}
+
+/* ── Small phones (≤ 400px) ── */
+@media (max-width: 400px) {
+  #hero > div:nth-child(3) > div:last-child {
+    flex: 0 1 200px !important;
+  }
+  #hero > div:nth-child(3) > div:last-child img {
+    max-width: 200px !important;
+    height: 260px !important;
+  }
+
+  #about > div > div:last-child {
+    gap: 12px !important;
+  }
+  #about > div > div:last-child > div {
+    padding: 20px 12px !important;
+  }
+}
