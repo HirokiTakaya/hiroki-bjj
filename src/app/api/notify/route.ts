@@ -9,6 +9,7 @@ type BookingPayload = {
   email: string;
   phone?: string;
   experience?: string;
+  dojo?: string;
   message?: string;
   date: string;
   time: string;
@@ -18,7 +19,7 @@ type BookingPayload = {
 export async function POST(req: NextRequest) {
   try {
     const body: BookingPayload = await req.json();
-    const { name, email, date, time, location, phone, experience, message } = body;
+    const { name, email, date, time, location, phone, experience, dojo, message } = body;
 
     if (!name || !email || !date || !time || !location) {
       return NextResponse.json(
@@ -42,6 +43,7 @@ export async function POST(req: NextRequest) {
           <tr><td style="padding: 8px; font-weight: bold;">Time</td><td style="padding: 8px;">${time}</td></tr>
           <tr><td style="padding: 8px; font-weight: bold;">Location</td><td style="padding: 8px;">${location}</td></tr>
           <tr><td style="padding: 8px; font-weight: bold;">Experience</td><td style="padding: 8px;">${experience || "—"}</td></tr>
+          <tr><td style="padding: 8px; font-weight: bold;">Dojo</td><td style="padding: 8px;">${dojo || "—"}</td></tr>
           <tr><td style="padding: 8px; font-weight: bold;">Message</td><td style="padding: 8px;">${message || "—"}</td></tr>
         </table>
       `,

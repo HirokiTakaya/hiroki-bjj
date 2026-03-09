@@ -27,6 +27,16 @@ const LABELS = {
       "1-3 Years",
       "3+ Years / Competitor",
     ],
+    dojo: "Home Gym / Dojo",
+    dojoOptions: [
+      "Gracie Barra Kitsilano",
+      "Gracie Barra Richmond",
+      "Lions MMA",
+      "Samurai Spirit Jiu Jitsu",
+      "Advantage Fitness",
+      "Other",
+    ],
+    dojoOtherPlaceholder: "Enter your gym name",
     message: "Goals or Notes",
     messagePlaceholder:
       "Tell me about your goals, injuries, or anything I should know...",
@@ -62,6 +72,16 @@ const LABELS = {
     phone: "電話番号（任意）",
     experience: "経験レベル",
     expOptions: ["完全初心者", "1年未満", "1〜3年", "3年以上 / 競技者"],
+    dojo: "所属道場",
+    dojoOptions: [
+      "Gracie Barra Kitsilano",
+      "Gracie Barra Richmond",
+      "Lions MMA",
+      "Samurai Spirit Jiu Jitsu",
+      "Advantage Fitness",
+      "その他",
+    ],
+    dojoOtherPlaceholder: "道場名を入力してください",
     message: "目標・備考",
     messagePlaceholder:
       "目標、怪我、その他知っておくべきことを教えてください...",
@@ -118,6 +138,8 @@ export default function BookingSection({ lang }: { lang: Lang }) {
     email: "",
     phone: "",
     experience: "",
+    dojo: "",
+    dojoOther: "",
     message: "",
   });
 
@@ -125,6 +147,10 @@ export default function BookingSection({ lang }: { lang: Lang }) {
     const now = new Date();
     return new Date(now.getFullYear(), now.getMonth(), 1);
   });
+
+  const isDojoOther = formData.dojo === "Other" || formData.dojo === "その他";
+
+  const resolvedDojo = isDojoOther ? formData.dojoOther : formData.dojo;
 
   const loadAvailability = async () => {
     try {
@@ -215,7 +241,12 @@ export default function BookingSection({ lang }: { lang: Lang }) {
         date: selectedDate,
         time: selectedTime,
         location: selectedLocation,
-        ...formData,
+        name: formData.name,
+        email: formData.email,
+        phone: formData.phone,
+        experience: formData.experience,
+        dojo: resolvedDojo,
+        message: formData.message,
       });
 
       if (result.success) {
@@ -229,7 +260,12 @@ export default function BookingSection({ lang }: { lang: Lang }) {
             date: selectedDate,
             time: selectedTime,
             location: selectedLocation,
-            ...formData,
+            name: formData.name,
+            email: formData.email,
+            phone: formData.phone,
+            experience: formData.experience,
+            dojo: resolvedDojo,
+            message: formData.message,
           }),
         }).catch((err) => console.error("Notification error:", err));
 
@@ -419,138 +455,30 @@ export default function BookingSection({ lang }: { lang: Lang }) {
         {/* Date */}
         {step === "date" && (
           <div style={{ animation: "fadeUp 0.5s ease" }}>
-            <p
-              style={{
-                fontSize: 14,
-                letterSpacing: 2,
-                textTransform: "uppercase",
-                color: "var(--color-text-faint)",
-                marginBottom: 20,
-              }}
-            >
+            <p style={{ fontSize: 14, letterSpacing: 2, textTransform: "uppercase", color: "var(--color-text-faint)", marginBottom: 20 }}>
               {t.selectDate}
             </p>
-            <div
-              style={{
-                display: "flex",
-                alignItems: "center",
-                justifyContent: "space-between",
-                marginBottom: 20,
-              }}
-            >
-              <button
-                type="button"
-                onClick={() =>
-                  setCalendarMonth(
-                    new Date(
-                      calendarMonth.getFullYear(),
-                      calendarMonth.getMonth() - 1,
-                      1
-                    )
-                  )
-                }
-                style={{
-                  background: "none",
-                  border: "1px solid var(--color-border)",
-                  color: "var(--color-text)",
-                  padding: "8px 16px",
-                  cursor: "pointer",
-                  fontSize: 16,
-                }}
-              >
-                ‹
-              </button>
-              <span
-                style={{
-                  fontFamily: "var(--font-display)",
-                  fontSize: 20,
-                  letterSpacing: 2,
-                }}
-              >
-                {t.monthNames[calendarMonth.getMonth()]}{" "}
-                {calendarMonth.getFullYear()}
+            <div style={{ display: "flex", alignItems: "center", justifyContent: "space-between", marginBottom: 20 }}>
+              <button type="button" onClick={() => setCalendarMonth(new Date(calendarMonth.getFullYear(), calendarMonth.getMonth() - 1, 1))} style={{ background: "none", border: "1px solid var(--color-border)", color: "var(--color-text)", padding: "8px 16px", cursor: "pointer", fontSize: 16 }}>‹</button>
+              <span style={{ fontFamily: "var(--font-display)", fontSize: 20, letterSpacing: 2 }}>
+                {t.monthNames[calendarMonth.getMonth()]} {calendarMonth.getFullYear()}
               </span>
-              <button
-                type="button"
-                onClick={() =>
-                  setCalendarMonth(
-                    new Date(
-                      calendarMonth.getFullYear(),
-                      calendarMonth.getMonth() + 1,
-                      1
-                    )
-                  )
-                }
-                style={{
-                  background: "none",
-                  border: "1px solid var(--color-border)",
-                  color: "var(--color-text)",
-                  padding: "8px 16px",
-                  cursor: "pointer",
-                  fontSize: 16,
-                }}
-              >
-                ›
-              </button>
+              <button type="button" onClick={() => setCalendarMonth(new Date(calendarMonth.getFullYear(), calendarMonth.getMonth() + 1, 1))} style={{ background: "none", border: "1px solid var(--color-border)", color: "var(--color-text)", padding: "8px 16px", cursor: "pointer", fontSize: 16 }}>›</button>
             </div>
-            <div
-              style={{
-                display: "grid",
-                gridTemplateColumns: "repeat(7, 1fr)",
-                gap: 4,
-                marginBottom: 4,
-              }}
-            >
+            <div style={{ display: "grid", gridTemplateColumns: "repeat(7, 1fr)", gap: 4, marginBottom: 4 }}>
               {t.dayNames.map((d) => (
-                <div
-                  key={d}
-                  style={{
-                    textAlign: "center",
-                    fontSize: 11,
-                    letterSpacing: 1,
-                    textTransform: "uppercase",
-                    color: "var(--color-text-faintest)",
-                    padding: "8px 0",
-                  }}
-                >
-                  {d}
-                </div>
+                <div key={d} style={{ textAlign: "center", fontSize: 11, letterSpacing: 1, textTransform: "uppercase", color: "var(--color-text-faintest)", padding: "8px 0" }}>{d}</div>
               ))}
             </div>
-            <div
-              style={{
-                display: "grid",
-                gridTemplateColumns: "repeat(7, 1fr)",
-                gap: 4,
-              }}
-            >
+            <div style={{ display: "grid", gridTemplateColumns: "repeat(7, 1fr)", gap: 4 }}>
               {renderCalendar()}
             </div>
-            <p
-              style={{
-                fontSize: 12,
-                color: "var(--color-text-faintest)",
-                marginTop: 16,
-                textAlign: "center",
-              }}
-            >
+            <p style={{ fontSize: 12, color: "var(--color-text-faintest)", marginTop: 16, textAlign: "center" }}>
               {slots.length > 0 ? t.hint : t.noAvailability}
             </p>
-            <p
-              style={{
-                fontSize: 13,
-                color: "var(--color-text-faint)",
-                marginTop: 12,
-                textAlign: "center",
-              }}
-            >
+            <p style={{ fontSize: 13, color: "var(--color-text-faint)", marginTop: 12, textAlign: "center" }}>
               {t.contactNote}{" "}
-              <a
-                href={`mailto:${t.contactEmail}`}
-                style={{ color: "var(--color-accent)", textDecoration: "none" }}
-              >
-                {t.contactEmail}
-              </a>
+              <a href={`mailto:${t.contactEmail}`} style={{ color: "var(--color-accent)", textDecoration: "none" }}>{t.contactEmail}</a>
             </p>
           </div>
         )}
@@ -559,65 +487,18 @@ export default function BookingSection({ lang }: { lang: Lang }) {
         {step === "time" && selectedDaySlot && (
           <div style={{ animation: "fadeUp 0.5s ease" }}>
             {backBtn}
-            <p
-              style={{
-                fontFamily: "var(--font-display)",
-                fontSize: 18,
-                letterSpacing: 2,
-                marginBottom: 24,
-              }}
-            >
+            <p style={{ fontFamily: "var(--font-display)", fontSize: 18, letterSpacing: 2, marginBottom: 24 }}>
               {selectedDate && formatDate(selectedDate, lang)}
             </p>
-            <p
-              style={{
-                fontSize: 14,
-                letterSpacing: 2,
-                textTransform: "uppercase",
-                color: "var(--color-text-faint)",
-                marginBottom: 16,
-              }}
-            >
+            <p style={{ fontSize: 14, letterSpacing: 2, textTransform: "uppercase", color: "var(--color-text-faint)", marginBottom: 16 }}>
               {t.availableSlots}
             </p>
-            <div
-              style={{
-                display: "grid",
-                gridTemplateColumns: "repeat(auto-fill, minmax(100px, 1fr))",
-                gap: 12,
-              }}
-            >
+            <div style={{ display: "grid", gridTemplateColumns: "repeat(auto-fill, minmax(100px, 1fr))", gap: 12 }}>
               {selectedDaySlot.timeSlots.map((ts) => (
-                <button
-                  key={ts.time}
-                  type="button"
-                  onClick={() => handleSelectTime(ts.time, ts.locations)}
-                  style={{
-                    padding: "16px 8px",
-                    cursor: "pointer",
-                    fontFamily: "var(--font-display)",
-                    fontSize: 20,
-                    letterSpacing: 1,
-                    transition: "all 0.2s ease",
-                    background: "var(--color-surface)",
-                    border: "1px solid var(--color-border)",
-                    color: "var(--color-text)",
-                  }}
-                >
+                <button key={ts.time} type="button" onClick={() => handleSelectTime(ts.time, ts.locations)} style={{ padding: "16px 8px", cursor: "pointer", fontFamily: "var(--font-display)", fontSize: 20, letterSpacing: 1, transition: "all 0.2s ease", background: "var(--color-surface)", border: "1px solid var(--color-border)", color: "var(--color-text)" }}>
                   {ts.time}
-                  <span
-                    style={{
-                      display: "block",
-                      fontSize: 10,
-                      color: "var(--color-text-faintest)",
-                      marginTop: 4,
-                      fontFamily: "var(--font-body)",
-                      letterSpacing: 0,
-                    }}
-                  >
-                    {ts.locations.length === 1
-                      ? ts.locations[0].split(" — ")[0]
-                      : `${ts.locations.length} ${t.multipleLocations}`}
+                  <span style={{ display: "block", fontSize: 10, color: "var(--color-text-faintest)", marginTop: 4, fontFamily: "var(--font-body)", letterSpacing: 0 }}>
+                    {ts.locations.length === 1 ? ts.locations[0].split(" — ")[0] : `${ts.locations.length} ${t.multipleLocations}`}
                   </span>
                 </button>
               ))}
@@ -629,51 +510,16 @@ export default function BookingSection({ lang }: { lang: Lang }) {
         {step === "location" && selectedTimeSlot && (
           <div style={{ animation: "fadeUp 0.5s ease" }}>
             {backBtn}
-            <p
-              style={{
-                fontFamily: "var(--font-display)",
-                fontSize: 18,
-                letterSpacing: 2,
-                marginBottom: 8,
-              }}
-            >
+            <p style={{ fontFamily: "var(--font-display)", fontSize: 18, letterSpacing: 2, marginBottom: 8 }}>
               {selectedDate && formatDate(selectedDate, lang)} · {selectedTime}
             </p>
-            <p
-              style={{
-                fontSize: 14,
-                letterSpacing: 2,
-                textTransform: "uppercase",
-                color: "var(--color-text-faint)",
-                marginBottom: 16,
-                marginTop: 24,
-              }}
-            >
+            <p style={{ fontSize: 14, letterSpacing: 2, textTransform: "uppercase", color: "var(--color-text-faint)", marginBottom: 16, marginTop: 24 }}>
               {t.selectLocation}
             </p>
             <div style={{ display: "grid", gap: 12 }}>
               {selectedTimeSlot.locations.map((loc) => (
-                <button
-                  key={loc}
-                  type="button"
-                  onClick={() => handleSelectLocation(loc)}
-                  style={{
-                    padding: "20px 24px",
-                    cursor: "pointer",
-                    textAlign: "left",
-                    transition: "all 0.2s ease",
-                    background: "var(--color-surface)",
-                    border: "1px solid var(--color-border)",
-                    color: "var(--color-text)",
-                    fontFamily: "var(--font-body)",
-                    fontSize: 16,
-                  }}
-                >
-                  <span
-                    style={{ color: "var(--color-accent)", marginRight: 12 }}
-                  >
-                    📍
-                  </span>
+                <button key={loc} type="button" onClick={() => handleSelectLocation(loc)} style={{ padding: "20px 24px", cursor: "pointer", textAlign: "left", transition: "all 0.2s ease", background: "var(--color-surface)", border: "1px solid var(--color-border)", color: "var(--color-text)", fontFamily: "var(--font-body)", fontSize: 16 }}>
+                  <span style={{ color: "var(--color-accent)", marginRight: 12 }}>📍</span>
                   {loc}
                 </button>
               ))}
@@ -685,183 +531,90 @@ export default function BookingSection({ lang }: { lang: Lang }) {
         {step === "form" && (
           <div style={{ animation: "fadeUp 0.5s ease" }}>
             {backBtn}
-            <div
-              style={{
-                padding: "20px 24px",
-                background: "rgba(56,189,248,0.05)",
-                border: "1px solid var(--color-border)",
-                marginBottom: 32,
-                display: "flex",
-                justifyContent: "space-between",
-                alignItems: "center",
-                flexWrap: "wrap",
-                gap: 12,
-              }}
-            >
+            <div style={{ padding: "20px 24px", background: "rgba(56,189,248,0.05)", border: "1px solid var(--color-border)", marginBottom: 32, display: "flex", justifyContent: "space-between", alignItems: "center", flexWrap: "wrap", gap: 12 }}>
               <div>
-                <p
-                  style={{
-                    fontFamily: "var(--font-display)",
-                    fontSize: 18,
-                    letterSpacing: 1,
-                  }}
-                >
-                  {selectedDate && formatDate(selectedDate, lang)} ·{" "}
-                  {selectedTime}
+                <p style={{ fontFamily: "var(--font-display)", fontSize: 18, letterSpacing: 1 }}>
+                  {selectedDate && formatDate(selectedDate, lang)} · {selectedTime}
                 </p>
-                <p
-                  style={{
-                    fontSize: 13,
-                    color: "var(--color-text-faint)",
-                    marginTop: 4,
-                  }}
-                >
-                  {selectedLocation}
-                </p>
+                <p style={{ fontSize: 13, color: "var(--color-text-faint)", marginTop: 4 }}>{selectedLocation}</p>
               </div>
-              <span
-                style={{
-                  fontSize: 13,
-                  color: "var(--color-accent)",
-                  fontFamily: "var(--font-display)",
-                  letterSpacing: 1,
-                }}
-              >
-                {t.oneHour}
-              </span>
+              <span style={{ fontSize: 13, color: "var(--color-accent)", fontFamily: "var(--font-display)", letterSpacing: 1 }}>{t.oneHour}</span>
             </div>
 
             {error && (
-              <div
-                style={{
-                  padding: "12px 16px",
-                  background: "rgba(239,68,68,0.1)",
-                  border: "1px solid rgba(239,68,68,0.3)",
-                  color: "#ef4444",
-                  fontSize: 14,
-                  marginBottom: 20,
-                }}
-              >
+              <div style={{ padding: "12px 16px", background: "rgba(239,68,68,0.1)", border: "1px solid rgba(239,68,68,0.3)", color: "#ef4444", fontSize: 14, marginBottom: 20 }}>
                 {error}
               </div>
             )}
 
-            <p
-              style={{
-                fontSize: 14,
-                letterSpacing: 2,
-                textTransform: "uppercase",
-                color: "var(--color-text-faint)",
-                marginBottom: 20,
-              }}
-            >
+            <p style={{ fontSize: 14, letterSpacing: 2, textTransform: "uppercase", color: "var(--color-text-faint)", marginBottom: 20 }}>
               {t.yourInfo}
             </p>
 
-            <form
-              onSubmit={handleSubmit}
-              style={{ display: "flex", flexDirection: "column", gap: 20 }}
-            >
-              <div
-                style={{
-                  display: "grid",
-                  gridTemplateColumns: "1fr 1fr",
-                  gap: 16,
-                }}
-              >
+            <form onSubmit={handleSubmit} style={{ display: "flex", flexDirection: "column", gap: 20 }}>
+              {/* Name + Email */}
+              <div style={{ display: "grid", gridTemplateColumns: "1fr 1fr", gap: 16 }}>
                 <div>
                   <label style={labelStyle}>{t.name}</label>
-                  <input
-                    className="input-field"
-                    required
-                    value={formData.name}
-                    onChange={(e) =>
-                      setFormData({ ...formData, name: e.target.value })
-                    }
-                  />
+                  <input className="input-field" required value={formData.name} onChange={(e) => setFormData({ ...formData, name: e.target.value })} />
                 </div>
                 <div>
                   <label style={labelStyle}>{t.email}</label>
-                  <input
-                    className="input-field"
-                    type="email"
-                    required
-                    value={formData.email}
-                    onChange={(e) =>
-                      setFormData({ ...formData, email: e.target.value })
-                    }
-                  />
+                  <input className="input-field" type="email" required value={formData.email} onChange={(e) => setFormData({ ...formData, email: e.target.value })} />
                 </div>
               </div>
-              <div
-                style={{
-                  display: "grid",
-                  gridTemplateColumns: "1fr 1fr",
-                  gap: 16,
-                }}
-              >
+
+              {/* Phone + Experience */}
+              <div style={{ display: "grid", gridTemplateColumns: "1fr 1fr", gap: 16 }}>
                 <div>
                   <label style={labelStyle}>{t.phone}</label>
-                  <input
-                    className="input-field"
-                    type="tel"
-                    value={formData.phone}
-                    onChange={(e) =>
-                      setFormData({ ...formData, phone: e.target.value })
-                    }
-                  />
+                  <input className="input-field" type="tel" value={formData.phone} onChange={(e) => setFormData({ ...formData, phone: e.target.value })} />
                 </div>
                 <div>
                   <label style={labelStyle}>{t.experience}</label>
-                  <select
-                    className="input-field"
-                    required
-                    value={formData.experience}
-                    onChange={(e) =>
-                      setFormData({ ...formData, experience: e.target.value })
-                    }
-                  >
-                    <option value="" disabled>
-                      —
-                    </option>
+                  <select className="input-field" required value={formData.experience} onChange={(e) => setFormData({ ...formData, experience: e.target.value })}>
+                    <option value="" disabled>—</option>
                     {t.expOptions.map((o, i) => (
-                      <option
-                        key={i}
-                        value={o}
-                        style={{ background: "#1a1a1a" }}
-                      >
-                        {o}
-                      </option>
+                      <option key={i} value={o} style={{ background: "#1a1a1a" }}>{o}</option>
                     ))}
                   </select>
                 </div>
               </div>
+
+              {/* Dojo */}
+              <div>
+                <label style={labelStyle}>{t.dojo}</label>
+                <select
+                  className="input-field"
+                  required
+                  value={formData.dojo}
+                  onChange={(e) => setFormData({ ...formData, dojo: e.target.value, dojoOther: "" })}
+                >
+                  <option value="" disabled>—</option>
+                  {t.dojoOptions.map((o, i) => (
+                    <option key={i} value={o} style={{ background: "#1a1a1a" }}>{o}</option>
+                  ))}
+                </select>
+                {isDojoOther && (
+                  <input
+                    className="input-field"
+                    required
+                    placeholder={t.dojoOtherPlaceholder}
+                    value={formData.dojoOther}
+                    onChange={(e) => setFormData({ ...formData, dojoOther: e.target.value })}
+                    style={{ marginTop: 12 }}
+                  />
+                )}
+              </div>
+
+              {/* Message */}
               <div>
                 <label style={labelStyle}>{t.message}</label>
-                <textarea
-                  className="input-field"
-                  rows={3}
-                  placeholder={t.messagePlaceholder}
-                  value={formData.message}
-                  onChange={(e) =>
-                    setFormData({ ...formData, message: e.target.value })
-                  }
-                  style={{ resize: "vertical" }}
-                />
+                <textarea className="input-field" rows={3} placeholder={t.messagePlaceholder} value={formData.message} onChange={(e) => setFormData({ ...formData, message: e.target.value })} style={{ resize: "vertical" }} />
               </div>
-              <button
-                type="submit"
-                className="btn-primary"
-                disabled={submitting}
-                style={{
-                  width: "100%",
-                  marginTop: 8,
-                  opacity: submitting ? 0.6 : 1,
-                }}
-              >
-                <span style={{ position: "relative", zIndex: 1 }}>
-                  {submitting ? t.booking : t.confirm}
-                </span>
+
+              <button type="submit" className="btn-primary" disabled={submitting} style={{ width: "100%", marginTop: 8, opacity: submitting ? 0.6 : 1 }}>
+                <span style={{ position: "relative", zIndex: 1 }}>{submitting ? t.booking : t.confirm}</span>
               </button>
             </form>
           </div>
