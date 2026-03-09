@@ -4,6 +4,7 @@ import {
   getDocs,
   getDoc,
   setDoc,
+  deleteDoc,
   writeBatch,
   query,
   where,
@@ -24,6 +25,12 @@ export type DaySchedule = {
 };
 
 export type WeeklySchedule = Record<string, DaySchedule>;
+
+export type DateOverride = {
+  date: string;
+  closed?: boolean;
+  slots: Slot[];
+};
 
 export type Booking = {
   id: string;
@@ -96,11 +103,6 @@ function makeSlotId(date: string, time: string, location: string): string {
     .replace(/\s+/g, "_");
 }
 
-/**
- * Normalize weekly schedule doc into Slot[]
- * - New format: slots: [{time, location}]
- * - Old format: times: string[], locations: string[]  (meaning all-times × all-locations)
- */
 function normalizeWeeklySlots(data: {
   slots?: Slot[];
   times?: string[];
@@ -153,13 +155,11 @@ export async function saveWeeklySchedule(
 ): Promise<void> {
   const batch = writeBatch(db);
 
-  // Delete existing docs
   const existing = await getDocs(collection(db, "weeklySchedule"));
   existing.forEach((docSnap) => {
     batch.delete(docSnap.ref);
   });
 
-  // Save new schedule (always slots[])
   for (const [dayOfWeek, data] of Object.entries(schedule)) {
     const slots = (data.slots || [])
       .map((slot) => ({
@@ -175,6 +175,59 @@ export async function saveWeeklySchedule(
   }
 
   await batch.commit();
+}
+
+// ─── Date Overrides (Admin) ──────────────────────────────────────────────────
+
+export async function fetchDateOverrides(): Promise<Map<string, DateOverride>> {
+  const snap = await getDocs(collection(db, "dateOverrides"));
+  const overrides = new Map<string, DateOverride>();
+
+  snap.forEach((docSnap) => {
+    const data = docSnap.data() as {
+      closed?: boolean;
+      slots?: Slot[];
+    };
+
+    const slots = (data.slots || [])
+      .map((slot) => ({
+        time: String(slot?.time ?? "").trim(),
+        location: String(slot?.location ?? "").trim(),
+      }))
+      .filter((slot) => slot.time && slot.location);
+
+    overrides.set(docSnap.id, {
+      date: docSnap.id,
+      closed: data.closed ?? false,
+      slots,
+    });
+  });
+
+  return overrides;
+}
+
+export async function saveDateOverride(
+  dateStr: string,
+  override: { closed?: boolean; slots: Slot[] }
+): Promise<void> {
+  const ref = doc(db, "dateOverrides", dateStr);
+
+  const cleanedSlots = (override.slots || [])
+    .map((slot) => ({
+      time: String(slot.time ?? "").trim(),
+      location: String(slot.location ?? "").trim(),
+    }))
+    .filter((slot) => slot.time && slot.location);
+
+  await setDoc(ref, {
+    closed: override.closed ?? false,
+    slots: cleanedSlots,
+  });
+}
+
+export async function deleteDateOverride(dateStr: string): Promise<void> {
+  const ref = doc(db, "dateOverrides", dateStr);
+  await deleteDoc(ref);
 }
 
 // ─── Bookings (Admin) ────────────────────────────────────────────────────────
@@ -219,6 +272,25 @@ export async function fetchAvailability(): Promise<DayAvailability[]> {
     weeklyScheduleByDay.set(dayOfWeek, normalizeWeeklySlots(data));
   });
 
+  // Fetch date overrides
+  const overridesSnap = await getDocs(collection(db, "dateOverrides"));
+  const overridesByDate = new Map<string, { closed: boolean; slots: Slot[] }>();
+
+  overridesSnap.forEach((docSnap) => {
+    const data = docSnap.data() as { closed?: boolean; slots?: Slot[] };
+    const slots = (data.slots || [])
+      .map((slot) => ({
+        time: String(slot?.time ?? "").trim(),
+        location: String(slot?.location ?? "").trim(),
+      }))
+      .filter((slot) => slot.time && slot.location);
+
+    overridesByDate.set(docSnap.id, {
+      closed: data.closed ?? false,
+      slots,
+    });
+  });
+
   // Fetch confirmed bookings from today onwards
   const bookingsSnap = await getDocs(
     query(
@@ -256,32 +328,44 @@ export async function fetchAvailability(): Promise<DayAvailability[]> {
     dateObj.setDate(dateObj.getDate() + i);
 
     const dateStr = getVancouverDateString(dateObj);
-    const dayOfWeek = new Date(`${dateStr}T12:00:00`).getDay();
 
-    const daySchedule = weeklyScheduleByDay.get(dayOfWeek) ?? [];
-    if (daySchedule.length === 0) continue;
+    // Check date override first
+    const override = overridesByDate.get(dateStr);
+
+    let daySlots: Slot[];
+
+    if (override) {
+      // If closed, skip this day entirely
+      if (override.closed) continue;
+      // Use override slots instead of weekly template
+      daySlots = override.slots;
+    } else {
+      // Fall back to weekly schedule
+      const dayOfWeek = new Date(`${dateStr}T12:00:00`).getDay();
+      daySlots = weeklyScheduleByDay.get(dayOfWeek) ?? [];
+    }
+
+    if (daySlots.length === 0) continue;
 
     const dayBookings = bookingsByDate.get(dateStr) ?? [];
     const timeMap = new Map<string, string[]>();
 
     const uniqueTimes = [
-      ...new Set(daySchedule.map((slot) => slot.time).filter(Boolean)),
+      ...new Set(daySlots.map((slot) => slot.time).filter(Boolean)),
     ].sort(sortTimes);
 
     for (const time of uniqueTimes) {
-      // Skip past times for today (shouldn't happen with i=2, but safe)
       if (dateStr === todayStr && timeToMinutes(time) <= nowMinutes) continue;
 
       const scheduledLocations = [
         ...new Set(
-          daySchedule
+          daySlots
             .filter((slot) => slot.time === time)
             .map((slot) => slot.location)
             .filter(Boolean)
         ),
       ];
 
-      // Remove exact same time/location if already booked
       const exactBookedLocations = new Set(
         dayBookings.filter((b) => b.time === time).map((b) => b.location)
       );
@@ -290,8 +374,6 @@ export async function fetchAvailability(): Promise<DayAvailability[]> {
         (loc) => !exactBookedLocations.has(loc)
       );
 
-      // ±2 hour location lock rule:
-      // If any booking exists within ±2h, only those booked locations remain
       const nearbyBookings = dayBookings.filter((b) => {
         return Math.abs(timeToMinutes(b.time) - timeToMinutes(time)) <= 120;
       });
@@ -367,23 +449,41 @@ export async function createBooking(
     };
   }
 
-  // 1. Verify the slot exists in weekly schedule (support old + new)
-  const dayOfWeek = new Date(`${date}T12:00:00`).getDay();
-  const weeklyDoc = await getDoc(doc(db, "weeklySchedule", String(dayOfWeek)));
+  // 1. Check date override first, then weekly schedule
+  const overrideDoc = await getDoc(doc(db, "dateOverrides", date));
+  let validSlots: Slot[];
 
-  if (!weeklyDoc.exists()) {
-    return { success: false, error: "This slot is not available" };
+  if (overrideDoc.exists()) {
+    const overrideData = overrideDoc.data() as { closed?: boolean; slots?: Slot[] };
+
+    if (overrideData.closed) {
+      return { success: false, error: "This date is not available" };
+    }
+
+    validSlots = (overrideData.slots || [])
+      .map((slot) => ({
+        time: String(slot?.time ?? "").trim(),
+        location: String(slot?.location ?? "").trim(),
+      }))
+      .filter((slot) => slot.time && slot.location);
+  } else {
+    const dayOfWeek = new Date(`${date}T12:00:00`).getDay();
+    const weeklyDoc = await getDoc(doc(db, "weeklySchedule", String(dayOfWeek)));
+
+    if (!weeklyDoc.exists()) {
+      return { success: false, error: "This slot is not available" };
+    }
+
+    const weeklyData = weeklyDoc.data() as {
+      slots?: Slot[];
+      times?: string[];
+      locations?: string[];
+    };
+
+    validSlots = normalizeWeeklySlots(weeklyData);
   }
 
-  const weeklyData = weeklyDoc.data() as {
-    slots?: Slot[];
-    times?: string[];
-    locations?: string[];
-  };
-
-  const weeklySlots = normalizeWeeklySlots(weeklyData);
-
-  const scheduledForThisTime = weeklySlots
+  const scheduledForThisTime = validSlots
     .filter((slot) => slot.time === time)
     .map((slot) => slot.location);
 
@@ -428,17 +528,15 @@ export async function createBooking(
     if (!lockedLocations.has(location)) {
       return {
         success: false,
-        error:
-          "This location is not available within 2 hours of another booking",
+        error: "This location is not available within 2 hours of another booking",
       };
     }
   }
 
-  // 5. Create booking with deterministic ID to prevent duplicates
+  // 5. Create booking with deterministic ID
   const slotId = makeSlotId(date, time, location);
   const bookingRef = doc(db, "bookings", slotId);
 
-  // Check again right before write (race condition mitigation)
   const existingDoc = await getDoc(bookingRef);
   if (existingDoc.exists()) {
     return { success: false, error: "Slot already booked" };
