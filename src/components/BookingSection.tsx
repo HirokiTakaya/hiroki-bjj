@@ -57,7 +57,7 @@ const LABELS = {
     hint: "Highlighted dates have available slots",
     oneHour: "1 HOUR",
     multipleLocations: "locations",
-    contactNote: "Don't see a time that works? Contact me directly:",
+    contactNote: "Want to book a different time? Contact me directly or reach out on Instagram @japaneseflash:",
     contactEmail: "hirokitakaya00@gmail.com",
   },
   ja: {
@@ -102,7 +102,7 @@ const LABELS = {
     hint: "ハイライトされた日付に空きがあります",
     oneHour: "1 HOUR",
     multipleLocations: "箇所",
-    contactNote: "ご希望の時間が見つからない場合はこちらへ：",
+    contactNote: "他の時間で予約したい場合は、直接ご連絡ください。Instagram: @japaneseflash またはメール：",
     contactEmail: "hirokitakaya00@gmail.com",
   },
 };
