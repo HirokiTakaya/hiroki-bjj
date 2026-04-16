@@ -65,7 +65,7 @@ export const LANG = {
             "1-on-1 private session",
             "Personalized curriculum",
             "Technique video follow-up",
-            "GB Kitsilano, GB Richmond, Lions MMA, Samurai Spirit",
+            "GB Kitsilano, Kaboom BJJ, Lions MMA, Samurai Spirit",
           ],
           highlight: false,
         },
@@ -81,9 +81,9 @@ export const LANG = {
           desc: "Gracie Barra affiliate in Kitsilano.",
         },
         {
-          area: "Richmond",
-          name: "Gracie Barra Richmond",
-          desc: "Gracie Barra affiliate in Richmond.",
+          area: "Surrey",
+          name: "Kaboom Brazilian Jiu-Jitsu",
+          desc: "Brazilian Jiu-Jitsu academy in Surrey.",
         },
         {
           area: "Vancouver",
@@ -118,7 +118,7 @@ export const LANG = {
       location: "Preferred Location",
       locOptions: [
         "Kitsilano — Gracie Barra",
-        "Richmond — Gracie Barra",
+        "Surrey — Kaboom BJJ",
         "Vancouver — Lions MMA",
         "North Vancouver — Samurai Spirit",
         "Burnaby — Advantage Fitness",
@@ -201,7 +201,7 @@ export const LANG = {
             "1対1プライベートセッション",
             "個別カリキュラム",
             "テクニック動画フォローアップ",
-            "GB Kitsilano, GB Richmond, Lions MMA, Samurai Spirit",
+            "GB Kitsilano, Kaboom BJJ, Lions MMA, Samurai Spirit",
           ],
           highlight: false,
         },
@@ -217,9 +217,9 @@ export const LANG = {
           desc: "キツラノのグレイシーバッハ提携道場。",
         },
         {
-          area: "リッチモンド",
-          name: "Gracie Barra Richmond",
-          desc: "リッチモンドのグレイシーバッハ提携道場。",
+          area: "サレー",
+          name: "Kaboom Brazilian Jiu-Jitsu",
+          desc: "サレーのブラジリアン柔術アカデミー。",
         },
         {
           area: "バンクーバー",
@@ -254,7 +254,7 @@ export const LANG = {
       location: "希望場所",
       locOptions: [
         "キツラノ — Gracie Barra",
-        "リッチモンド — Gracie Barra",
+        "サレー — Kaboom BJJ",
         "バンクーバー — Lions MMA",
         "ノースバンクーバー — Samurai Spirit",
         "バーナビー — Advantage Fitness",
