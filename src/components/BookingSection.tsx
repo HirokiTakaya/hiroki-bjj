@@ -620,6 +620,7 @@ export default function BookingSection({ lang }: { lang: Lang }) {
           </div>
         )}
       </div>
+      
     </section>
   );
 }

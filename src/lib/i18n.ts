@@ -33,20 +33,8 @@ export const LANG = {
         "Bring a friend and split the cost. No membership required to book. Rates vary by gym due to each facility's policies.",
       plans: [
         {
-          name: "Advantage Fitness Member",
-          price: "$60",
-          per: "/ hour",
-          features: [
-            "1-on-1 private session",
-            "Personalized curriculum",
-            "Technique video follow-up",
-            "Advantage Fitness location",
-          ],
-          highlight: false,
-        },
-        {
           name: "Non-Member",
-          price: "$120",
+          price: "$150",
           per: "/ hour",
           features: [
             "1-on-1 private session",
@@ -59,13 +47,13 @@ export const LANG = {
         },
         {
           name: "Gym Member",
-          price: "$92~",
+          price: "$120",
           per: "/ hour",
           features: [
             "1-on-1 private session",
             "Personalized curriculum",
             "Technique video follow-up",
-            "GB Kitsilano, Kaboom BJJ, Lions MMA, Samurai Spirit",
+            "GB Kitsilano, Kaboom BJJ, Lions MMA, Samurai Spirit, Advantage Fitness",
           ],
           highlight: false,
         },
@@ -96,9 +84,9 @@ export const LANG = {
           desc: "Dedicated martial arts facility in North Vancouver.",
         },
         {
-          area: "Burnaby",
+          area: "North Burnaby",
           name: "Advantage Fitness",
-          desc: "Full-service fitness facility in Burnaby. Special member rate available.",
+          desc: "Full-service fitness facility in North Burnaby. Home of Takaya Jiu-Jitsu Academy (No-Gi).",
         },
       ],
     },
@@ -121,7 +109,7 @@ export const LANG = {
         "Surrey — Kaboom BJJ",
         "Vancouver — Lions MMA",
         "North Vancouver — Samurai Spirit",
-        "Burnaby — Advantage Fitness",
+        "North Burnaby — Advantage Fitness",
         "No Preference",
       ],
       message: "Goals or Notes",
@@ -169,20 +157,8 @@ export const LANG = {
         "お友達と一緒に参加して費用を分割できます。会員でなくても予約可能です。料金は各施設の規定により異なります。",
       plans: [
         {
-          name: "Advantage Fitness 会員",
-          price: "$60",
-          per: "/ 時間",
-          features: [
-            "1対1プライベートセッション",
-            "個別カリキュラム",
-            "テクニック動画フォローアップ",
-            "Advantage Fitness",
-          ],
-          highlight: false,
-        },
-        {
           name: "非会員",
-          price: "$120",
+          price: "$150",
           per: "/ 時間",
           features: [
             "1対1プライベートセッション",
@@ -195,13 +171,13 @@ export const LANG = {
         },
         {
           name: "ジム会員",
-          price: "$92~",
+          price: "$120",
           per: "/ 時間",
           features: [
             "1対1プライベートセッション",
             "個別カリキュラム",
             "テクニック動画フォローアップ",
-            "GB Kitsilano, Kaboom BJJ, Lions MMA, Samurai Spirit",
+            "GB Kitsilano, Kaboom BJJ, Lions MMA, Samurai Spirit, Advantage Fitness",
           ],
           highlight: false,
         },
@@ -232,9 +208,9 @@ export const LANG = {
           desc: "ノースバンクーバーの柔術専門道場。",
         },
         {
-          area: "バーナビー",
+          area: "ノースバーナビー",
           name: "Advantage Fitness",
-          desc: "バーナビーのフィットネス施設。会員特別価格あり。",
+          desc: "ノースバーナビーのフィットネス施設。Takaya Jiu-Jitsu Academy（ノーギ）の拠点。",
         },
       ],
     },
@@ -257,7 +233,7 @@ export const LANG = {
         "サレー — Kaboom BJJ",
         "バンクーバー — Lions MMA",
         "ノースバンクーバー — Samurai Spirit",
-        "バーナビー — Advantage Fitness",
+        "ノースバーナビー — Advantage Fitness",
         "希望なし",
       ],
       message: "目標・備考",

@@ -17,7 +17,7 @@ import {
 
 const LOCATIONS = [
   "Kitsilano — Gracie Barra",
-  "Richmond — Gracie Barra",
+  "Surrey — Kaboom BJJ",
   "Vancouver — Lions MMA",
   "North Vancouver — Samurai Spirit",
   "Burnaby — Advantage Fitness",
