@@ -8,7 +8,7 @@ export const LANG = {
       book: "Book Now",
     },
     hero: {
-      subtitle: "PRIVATE JIU-JITSU LESSONS",
+      subtitle: "BJJ BLACK BELT · PRIVATE LESSONS",
       title: "Train with Hiroki Takaya",
       desc: "Elevate your grappling with personalized 1-on-1 sessions in Metro Vancouver.",
       cta: "Book a Session",
@@ -17,12 +17,12 @@ export const LANG = {
     about: {
       tag: "ABOUT YOUR INSTRUCTOR",
       title: "Hiroki Takaya",
-      p1: "A Brazilian Jiu-Jitsu instructor with training experience across 4 countries.",
+      p1: "A Brazilian Jiu-Jitsu black belt instructor with training experience across 4 countries.",
       p2: "Whether you're a complete beginner or a seasoned competitor, Hiroki tailors each session to your goals — from fundamentals and self-defense to advanced competition strategies.",
       stats: [
         { value: "4", label: "Countries Trained" },
         { value: "8+", label: "Years Training" },
-        { value: "5", label: "Training Locations" },
+        { value: "4", label: "Training Locations" },
         { value: "1:1", label: "Personalized" },
       ],
     },
@@ -53,7 +53,7 @@ export const LANG = {
             "1-on-1 private session",
             "Personalized curriculum",
             "Technique video follow-up",
-            "GB Kitsilano, Kaboom BJJ, Lions MMA, Samurai Spirit, Advantage Fitness",
+            "GB Kitsilano, Kaboom BJJ, Samurai Spirit, Advantage Fitness",
           ],
           highlight: false,
         },
@@ -72,11 +72,6 @@ export const LANG = {
           area: "Surrey",
           name: "Kaboom Brazilian Jiu-Jitsu",
           desc: "Brazilian Jiu-Jitsu academy in Surrey.",
-        },
-        {
-          area: "Vancouver",
-          name: "Lions MMA",
-          desc: "MMA and grappling gym in Vancouver.",
         },
         {
           area: "North Vancouver",
@@ -107,7 +102,6 @@ export const LANG = {
       locOptions: [
         "Kitsilano — Gracie Barra",
         "Surrey — Kaboom BJJ",
-        "Vancouver — Lions MMA",
         "North Vancouver — Samurai Spirit",
         "North Burnaby — Advantage Fitness",
         "No Preference",
@@ -132,7 +126,7 @@ export const LANG = {
       book: "予約する",
     },
     hero: {
-      subtitle: "プライベート柔術レッスン",
+      subtitle: "柔術黒帯 · プライベートレッスン",
       title: "Hiroki Takayaと練習しよう",
       desc: "バンクーバーで1対1のパーソナルセッションでグラップリングを向上させましょう。",
       cta: "セッションを予約",
@@ -141,12 +135,12 @@ export const LANG = {
     about: {
       tag: "インストラクター紹介",
       title: "Hiroki Takaya",
-      p1: "4カ国でのトレーニング経験を持つブラジリアン柔術インストラクター。",
+      p1: "4カ国でのトレーニング経験を持つブラジリアン柔術黒帯インストラクター。",
       p2: "初心者から競技者まで、セルフディフェンスの基礎から高度な試合戦略まで、あなたの目標に合わせたレッスンをご提供します。",
       stats: [
         { value: "4", label: "カ国で修行" },
         { value: "8+", label: "年の経験" },
-        { value: "5", label: "提供場所" },
+        { value: "4", label: "提供場所" },
         { value: "1:1", label: "マンツーマン" },
       ],
     },
@@ -177,7 +171,7 @@ export const LANG = {
             "1対1プライベートセッション",
             "個別カリキュラム",
             "テクニック動画フォローアップ",
-            "GB Kitsilano, Kaboom BJJ, Lions MMA, Samurai Spirit, Advantage Fitness",
+            "GB Kitsilano, Kaboom BJJ, Samurai Spirit, Advantage Fitness",
           ],
           highlight: false,
         },
@@ -185,7 +179,7 @@ export const LANG = {
     },
     locations: {
       tag: "指導場所",
-      title: "5箇所で指導中",
+      title: "4箇所で指導中",
       spots: [
         {
           area: "キツラノ",
@@ -196,11 +190,6 @@ export const LANG = {
           area: "サレー",
           name: "Kaboom Brazilian Jiu-Jitsu",
           desc: "サレーのブラジリアン柔術アカデミー。",
-        },
-        {
-          area: "バンクーバー",
-          name: "Lions MMA",
-          desc: "バンクーバーのMMA・グラップリングジム。",
         },
         {
           area: "ノースバンクーバー",
@@ -231,7 +220,6 @@ export const LANG = {
       locOptions: [
         "キツラノ — Gracie Barra",
         "サレー — Kaboom BJJ",
-        "バンクーバー — Lions MMA",
         "ノースバンクーバー — Samurai Spirit",
         "ノースバーナビー — Advantage Fitness",
         "希望なし",
