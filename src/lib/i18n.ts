@@ -7,6 +7,7 @@ export const LANG = {
       locations: "Locations",
       book: "Book Now",
     },
+
     hero: {
       subtitle: "BJJ BLACK BELT · PRIVATE LESSONS",
       title: "Train with Hiroki Takaya",
@@ -14,6 +15,7 @@ export const LANG = {
       cta: "Book a Session",
       scroll: "Scroll to explore",
     },
+
     about: {
       tag: "ABOUT YOUR INSTRUCTOR",
       title: "Hiroki Takaya",
@@ -22,15 +24,17 @@ export const LANG = {
       stats: [
         { value: "4", label: "Countries Trained" },
         { value: "8+", label: "Years Training" },
-        { value: "4", label: "Training Locations" },
+        { value: "3", label: "Training Locations" },
         { value: "1:1", label: "Personalized" },
       ],
     },
+
     pricing: {
       tag: "PRICING",
       title: "Private Lesson Rates",
       subtitle:
         "Bring a friend and split the cost. No membership required to book. Rates vary by gym due to each facility's policies.",
+
       plans: [
         {
           name: "Non-Member",
@@ -45,6 +49,7 @@ export const LANG = {
           ],
           highlight: true,
         },
+
         {
           name: "Gym Member",
           price: "$120",
@@ -53,31 +58,30 @@ export const LANG = {
             "1-on-1 private session",
             "Personalized curriculum",
             "Technique video follow-up",
-            "GB Kitsilano, Kaboom BJJ, Samurai Spirit, Advantage Fitness",
+            "GB Kitsilano, Samurai Spirit, Advantage Fitness",
           ],
           highlight: false,
         },
       ],
     },
+
     locations: {
       tag: "LOCATIONS",
       title: "Teaching Locations",
+
       spots: [
         {
           area: "Kitsilano",
           name: "Gracie Barra Kitsilano",
           desc: "Gracie Barra affiliate in Kitsilano.",
         },
-        {
-          area: "Surrey",
-          name: "Kaboom Brazilian Jiu-Jitsu",
-          desc: "Brazilian Jiu-Jitsu academy in Surrey.",
-        },
+
         {
           area: "North Vancouver",
           name: "Samurai Spirit Jiu Jitsu",
           desc: "Dedicated martial arts facility in North Vancouver.",
         },
+
         {
           area: "North Burnaby",
           name: "Advantage Fitness",
@@ -85,6 +89,7 @@ export const LANG = {
         },
       ],
     },
+
     form: {
       tag: "BOOK NOW",
       title: "Reserve Your Session",
@@ -92,31 +97,39 @@ export const LANG = {
       email: "Email Address",
       phone: "Phone Number (optional)",
       experience: "Experience Level",
+
       expOptions: [
         "Complete Beginner",
         "< 1 Year",
         "1-3 Years",
         "3+ Years / Competitor",
       ],
+
       location: "Preferred Location",
+
       locOptions: [
         "Kitsilano — Gracie Barra",
-        "Surrey — Kaboom BJJ",
         "North Vancouver — Samurai Spirit",
         "North Burnaby — Advantage Fitness",
         "No Preference",
       ],
+
       message: "Goals or Notes",
+
       messagePlaceholder:
         "Tell me about your goals, injuries, or anything I should know...",
+
       submit: "Send Booking Request",
+
       sent: "Message Sent! I'll get back to you soon. OSS! 🤙",
     },
+
     footer: {
       copy: "© 2026 Hiroki Takaya. All rights reserved.",
       links: ["Instagram", "Website", "Contact"],
     },
   },
+
   ja: {
     nav: {
       home: "ホーム",
@@ -125,6 +138,7 @@ export const LANG = {
       locations: "場所",
       book: "予約する",
     },
+
     hero: {
       subtitle: "柔術黒帯 · プライベートレッスン",
       title: "Hiroki Takayaと練習しよう",
@@ -132,28 +146,34 @@ export const LANG = {
       cta: "セッションを予約",
       scroll: "スクロールして探索",
     },
+
     about: {
       tag: "インストラクター紹介",
       title: "Hiroki Takaya",
       p1: "4カ国でのトレーニング経験を持つブラジリアン柔術黒帯インストラクター。",
       p2: "初心者から競技者まで、セルフディフェンスの基礎から高度な試合戦略まで、あなたの目標に合わせたレッスンをご提供します。",
+
       stats: [
         { value: "4", label: "カ国で修行" },
         { value: "8+", label: "年の経験" },
-        { value: "4", label: "提供場所" },
+        { value: "3", label: "提供場所" },
         { value: "1:1", label: "マンツーマン" },
       ],
     },
+
     pricing: {
       tag: "料金",
       title: "プライベートレッスン料金",
+
       subtitle:
         "お友達と一緒に参加して費用を分割できます。会員でなくても予約可能です。料金は各施設の規定により異なります。",
+
       plans: [
         {
           name: "非会員",
           price: "$150",
           per: "/ 時間",
+
           features: [
             "1対1プライベートセッション",
             "個別カリキュラム",
@@ -161,41 +181,44 @@ export const LANG = {
             "場所選択可能",
             "会員登録不要",
           ],
+
           highlight: true,
         },
+
         {
           name: "ジム会員",
           price: "$120",
           per: "/ 時間",
+
           features: [
             "1対1プライベートセッション",
             "個別カリキュラム",
             "テクニック動画フォローアップ",
-            "GB Kitsilano, Kaboom BJJ, Samurai Spirit, Advantage Fitness",
+            "GB Kitsilano, Samurai Spirit, Advantage Fitness",
           ],
+
           highlight: false,
         },
       ],
     },
+
     locations: {
       tag: "指導場所",
-      title: "4箇所で指導中",
+      title: "3箇所で指導中",
+
       spots: [
         {
           area: "キツラノ",
           name: "Gracie Barra Kitsilano",
           desc: "キツラノのグレイシーバッハ提携道場。",
         },
-        {
-          area: "サレー",
-          name: "Kaboom Brazilian Jiu-Jitsu",
-          desc: "サレーのブラジリアン柔術アカデミー。",
-        },
+
         {
           area: "ノースバンクーバー",
           name: "Samurai Spirit Jiu Jitsu",
           desc: "ノースバンクーバーの柔術専門道場。",
         },
+
         {
           area: "ノースバーナビー",
           name: "Advantage Fitness",
@@ -203,6 +226,7 @@ export const LANG = {
         },
       ],
     },
+
     form: {
       tag: "予約",
       title: "セッションを予約する",
@@ -210,26 +234,33 @@ export const LANG = {
       email: "メールアドレス",
       phone: "電話番号（任意）",
       experience: "経験レベル",
+
       expOptions: [
         "完全初心者",
         "1年未満",
         "1〜3年",
         "3年以上 / 競技者",
       ],
+
       location: "希望場所",
+
       locOptions: [
         "キツラノ — Gracie Barra",
-        "サレー — Kaboom BJJ",
         "ノースバンクーバー — Samurai Spirit",
         "ノースバーナビー — Advantage Fitness",
         "希望なし",
       ],
+
       message: "目標・備考",
+
       messagePlaceholder:
         "目標、怪我、その他知っておくべきことを教えてください...",
+
       submit: "予約リクエストを送信",
+
       sent: "送信完了！すぐにご連絡します。OSS! 🤙",
     },
+
     footer: {
       copy: "© 2026 Hiroki Takaya. All rights reserved.",
       links: ["Instagram", "ウェブサイト", "お問い合わせ"],

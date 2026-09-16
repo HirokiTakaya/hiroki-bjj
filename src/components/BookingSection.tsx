@@ -117,6 +117,11 @@ function formatDate(dateStr: string, lang: Lang) {
     : `${month}${day}日 (${weekday})`;
 }
 
+const isActiveLocation = (location: string) => {
+  const normalized = location.toLowerCase();
+  return !normalized.includes("kaboom") && !normalized.includes("surrey");
+};
+
 export default function BookingSection({ lang }: { lang: Lang }) {
   const t = LABELS[lang];
 
@@ -156,7 +161,19 @@ export default function BookingSection({ lang }: { lang: Lang }) {
     try {
       setLoading(true);
       const data = await fetchAvailability();
-      setSlots(data);
+      const activeSlots = data
+        .map((day) => ({
+          ...day,
+          timeSlots: day.timeSlots
+            .map((timeSlot) => ({
+              ...timeSlot,
+              locations: timeSlot.locations.filter(isActiveLocation),
+            }))
+            .filter((timeSlot) => timeSlot.locations.length > 0),
+        }))
+        .filter((day) => day.timeSlots.length > 0);
+
+      setSlots(activeSlots);
     } catch (err) {
       console.error("Availability fetch error:", err);
       setSlots([]);
